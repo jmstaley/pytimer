@@ -11,23 +11,37 @@ class Activity:
         self.state = state
 
     def start_activity(self, description=''):
-        """
+        """ start activity
         """
         self.description = description
         self.start = datetime.now()
         self.state = 'running'
 
     def end_activity(self):
-        """
+        """ stop activity
         """
         self.end = datetime.now()
         self.state = 'finished'
 
-    def duration(self):
+    def fmt_duration(self, seconds):
+        """ return duration formatted hh:mm:ss
         """
+        hours = seconds / 3600
+        seconds -= 3600*hours
+        minutes = seconds / 60
+        seconds -= 60*minutes
+        return "%02d:%02d:%02d" % (hours, minutes, seconds)
+
+    def duration(self, formatted=False):
+        """ return duration in seconds
         """
         if self.end:
-            duration = self.end - self.start
+            delta = self.end - self.start
         else:
-            duration = datetime.now() - self.start
-        return duration.seconds
+            delta = datetime.now() - self.start
+
+        if formatted:
+            duration = self.fmt_duration(delta.seconds)
+        else:
+            duration = delta.seconds
+        return duration

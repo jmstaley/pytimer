@@ -9,12 +9,17 @@ class Display:
         self.screen = curses.initscr()
         curses.noecho()
         curses.cbreak()
+        self.max_y, self.max_x = self.screen.getmaxyx()
 
     def set_screen(self):
+        """ clear screen ready for new display
+        """
         self.screen.clear()
         self.screen.border(0)
 
     def get_param(self, prompt_string):
+        """ get user input from screen
+        """
         self.set_screen()
         self.screen.addstr(2, 2, prompt_string)
         self.screen.refresh()
@@ -24,14 +29,18 @@ class Display:
         return input
 
     def show_current(self, display_string):
+        """ display the current task on screen
+        """
         self.set_screen()
         self.screen.addstr(2, 2, 'Current task:')
         self.screen.addstr(5, 4, display_string)
-        self.screen.hline(15, 1, curses.ACS_HLINE, 77)
-        self.screen.addstr(16, 2, 'f - Finish task')
+        self.screen.hline((self.max_y-3), 1, curses.ACS_HLINE, (self.max_x-2))
+        self.screen.addstr((self.max_y-2), 2, 'f - [Finish task]')
         self.screen.refresh()
 
     def menu(self, message=''):
+        """ display main menu
+        """
         self.set_screen()
         self.screen.addstr(2, 2, "Please enter a number...")
         self.screen.addstr(4, 4, "1 - Start new task")
@@ -41,6 +50,8 @@ class Display:
         self.screen.refresh()
 
     def exit(self):
+        """ reset curses and exit
+        """
         curses.echo()
         curses.nocbreak()
         curses.endwin()

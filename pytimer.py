@@ -14,7 +14,8 @@ if __name__ == "__main__":
             display.show_current(description)
         if x == ord('f'):
             obj.end_activity()
-            message = "Last activity: %s %s" % (obj.description, obj.duration())
+            message = "Last activity: %s %s" % (obj.description, 
+                                                obj.duration(formatted=True))
             display.menu(message)
         if x == ord("2"):
             break
