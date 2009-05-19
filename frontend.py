@@ -1,5 +1,4 @@
 import curses
-import activity
 
 class Display:
     """
@@ -28,6 +27,9 @@ class Display:
         curses.noecho()
         return input
 
+    def add_str(self, string, x=0, y=0):
+        self.screen.addstr(y, x, string)
+
     def show_current(self, display_string):
         """ display the current task on screen
         """
@@ -42,12 +44,9 @@ class Display:
         """ display main menu
         """
         self.set_screen()
-        self.screen.addstr(2, 2, "Please enter a number...")
-        self.screen.addstr(4, 4, "1 - Start new task")
-        self.screen.addstr(5, 4, "2 - Exit")
-        if message:
-            self.screen.addstr(7, 2, message)
-        self.screen.refresh()
+        self.add_str("Please enter a number...", x=2, y=2)
+        self.add_str("1 - Start new task", x=4, y=4)
+        self.add_str("2 - Exit", x=4, y=5)
 
     def exit(self):
         """ reset curses and exit
