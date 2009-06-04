@@ -1,7 +1,9 @@
 import frontend
 import activity
+import database
 
 if __name__ == "__main__":
+    db = database.Database()
     display = frontend.Display()
     display.menu()
     while 1:
