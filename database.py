@@ -17,7 +17,10 @@ class Database:
         if not self._table_exists(name='activities'):
             cursor = self.conn.cursor()
             cursor.execute('''create table activities
-             (start text, end text, description text)''')
+             (id INTEGER PRIMARY KEY, 
+              start TIMESTAMP, 
+              end TIMESTAMP, 
+              description text)''')
             self.conn.commit()
             cursor.close()
             self.conn.close()
@@ -39,7 +42,7 @@ class Database:
     def open(self):
         """ Open database file
         """
-        self.conn = sqlite3.connect(self.db_file)
+        self.conn = sqlite3.connect(self.db_file, detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
     
     def get_cursor(self):
         """
