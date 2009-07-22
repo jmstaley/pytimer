@@ -20,7 +20,7 @@ class Display:
         """ get user input from screen
         """
         self.set_screen()
-        self.screen.addstr(2, 2, prompt_string)
+        self.add_str(prompt_string, x=2, y=2)
         self.screen.refresh()
         curses.echo()
         input = self.screen.getstr(10, 10, 60)
@@ -34,11 +34,24 @@ class Display:
         """ display the current task on screen
         """
         self.set_screen()
-        self.screen.addstr(2, 2, 'Current task:')
-        self.screen.addstr(5, 4, display_string)
+        self.add_str('Current task:', x=2, y=2)
+        self.add_str(display_string, x=4, y=5)
         self.screen.hline((self.max_y-3), 1, curses.ACS_HLINE, (self.max_x-2))
-        self.screen.addstr((self.max_y-2), 2, 'f - [Finish task]')
+        self.add_str('f - [Finish task]', x=2, y=(self.max_y-2))
         self.screen.refresh()
+
+    def show_last(self, obj):
+        self.add_str('Last activity:', y=7, x=5) 
+        self.add_str('Description: %s' % obj.description, y=9, x=6)
+        self.add_str('Start: %s' % obj.start.strftime('%d/%m/%Y %H:%M'), 
+                      y=10, 
+                      x=6)
+        self.add_str('End: %s' % obj.end.strftime('%d/%m/%Y %H:%M'), 
+                     y=11, 
+                     x=6)
+        self.add_str('Duration: %s' % (obj.end - obj.start),
+                     y=13,
+                     x=8)
 
     def menu(self, message=''):
         """ display main menu

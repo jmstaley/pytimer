@@ -32,7 +32,7 @@ class Database:
         self.open()
         cursor = self.conn.cursor()
         try:
-            cursor.execute('SELECT * FROM ?', name)
+            cursor.execute('SELECT * FROM %s' % name)
             exists = True
         except:
             pass
