@@ -1,4 +1,5 @@
 from datetime import datetime
+from database import Database
 
 class Activity:
     """
@@ -45,3 +46,9 @@ class Activity:
         else:
             duration = delta.seconds
         return duration
+
+    def save(self):
+        """ Save object to database
+        """
+        db = Database()
+        id = db.insert_record(self)

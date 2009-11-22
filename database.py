@@ -32,7 +32,7 @@ class Database:
         self.open()
         cursor = self.conn.cursor()
         try:
-            cursor.execute('SELECT * FROM %s' % name)
+            cursor.execute("SELECT * FROM %s" % name)
             exists = True
         except:
             pass
@@ -44,7 +44,16 @@ class Database:
         """
         self.conn = sqlite3.connect(self.db_file, detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
     
-    def get_cursor(self):
+    def insert_record(self, obj):
+        """ Insert a record into the database
         """
-        """
-        return self.conn.cursor()
+        values = (obj.start, obj.end, obj.description, )
+        query = 'insert into activities values (NULL,?,?,?)'
+        self.open()
+        cursor = self.conn.cursor()
+        cursor.execute(query, values)
+        row_id = cursor.lastrowid
+        self.conn.commit()
+        cursor.close()
+        self.conn.close()
+        return row_id

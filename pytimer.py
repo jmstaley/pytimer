@@ -3,7 +3,6 @@ import activity
 import database
 
 if __name__ == "__main__":
-    db = database.Database()
     display = frontend.Display()
     display.menu()
     while 1:
@@ -16,6 +15,7 @@ if __name__ == "__main__":
             display.show_current(description)
         if x == ord('f'):
             obj.end_activity()
+            obj.save()
             message = "Last activity: %s %s" % (obj.description, 
                                                 obj.duration(formatted=True))
             display.menu()
