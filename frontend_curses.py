@@ -67,3 +67,15 @@ class Display:
         curses.echo()
         curses.nocbreak()
         curses.endwin()
+
+    def list_activities(self, results, schema=[]):
+        """ display a list of results
+        """
+        self.set_screen()
+        header = ''
+        if schema:
+            for title in schema:
+                header += '%s\t' % title
+            self.add_str(header, x=1, y=1)
+        self.screen.hline((2), 1, curses.ACS_HLINE, (2))
+        self.screen.refresh()

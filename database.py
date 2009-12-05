@@ -39,6 +39,14 @@ class Database:
         cursor.close()
         return exists
 
+    def _run_query(self, query, values=()):
+        """ Run database query returning the cursor object
+        """
+        self.open()
+        cursor = self.conn.cursor()
+        cursor.execute(query, values)
+        return cursor
+
     def open(self):
         """ Open database file
         """
@@ -49,11 +57,19 @@ class Database:
         """
         values = (obj.start, obj.end, obj.description, )
         query = 'insert into activities values (NULL,?,?,?)'
-        self.open()
-        cursor = self.conn.cursor()
-        cursor.execute(query, values)
+        cursor = self._run_query(query, values)
         row_id = cursor.lastrowid
         self.conn.commit()
         cursor.close()
         self.conn.close()
         return row_id
+
+    def get_records(self):
+        """ Return a list of records from the database
+        """
+        query = 'select * from activities'
+        cursor = self._run_query(query)
+        results = cursor.fetchall()
+        cursor.close()
+        self.conn.close()
+        return results
