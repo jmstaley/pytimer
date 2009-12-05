@@ -10,14 +10,14 @@ if __name__ == "__main__":
 
         if x == ord('1'):
             description = display.get_param("enter activity description")
-            obj = activity.activity()
+            obj = activity.Activity()
             obj.start_activity(description)
             display.show_current(description)
         if x == ord('f'):
             obj.end_activity()
             obj.save()
             message = "last activity: %s %s" % (obj.description, 
-                                                obj.duration(formatted=true))
+                                                obj.duration(formatted=True))
             display.menu()
             display.show_last(obj)
             display.screen.refresh()
