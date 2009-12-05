@@ -57,9 +57,10 @@ class Display:
         """ display main menu
         """
         self.set_screen()
-        self.add_str("Please enter a number...", x=2, y=2)
+        self.add_str("Please select an option...", x=2, y=2)
         self.add_str("1 - Start new task", x=4, y=4)
-        self.add_str("2 - Exit", x=4, y=5)
+        self.add_str("2 - View activities", x=4, y=6)
+        self.add_str("Q - Exit", x=4, y=8)
 
     def exit(self):
         """ reset curses and exit
@@ -77,5 +78,5 @@ class Display:
             for title in schema:
                 header += '%s\t' % title
             self.add_str(header, x=1, y=1)
-        self.screen.hline((2), 1, curses.ACS_HLINE, (2))
+        self.screen.hline((2), 1, curses.ACS_HLINE, (self.max_x-2))
         self.screen.refresh()
