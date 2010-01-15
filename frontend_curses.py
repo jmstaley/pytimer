@@ -41,8 +41,8 @@ class Display:
         self.screen.refresh()
 
     def show_last(self, obj):
-        self.add_str('Last activity:', y=7, x=5) 
-        self.add_str('Description: %s' % obj.description, y=9, x=6)
+        self.add_str('Last activity:', y=9, x=5) 
+        self.add_str('Description: %s' % obj.description, y=11, x=6)
         self.add_str('Start: %s' % obj.start.strftime('%d/%m/%Y %H:%M'), 
                       y=10, 
                       x=6)
@@ -53,7 +53,16 @@ class Display:
                      y=13,
                      x=8)
 
-    def menu(self, message=''):
+    def new_menu(self):
+        """ new main menu
+        """
+        self.set_screen()
+        self.add_str("[n - Start new task]", x=2, y=1)
+        self.add_str("[l - View activities] ", x=24, y=1)
+        self.add_str("[q - Exit]", x=47, y=1)
+        self.screen.hline(2, 1, curses.ACS_HLINE, (self.max_x-2))
+
+    def menu(self):
         """ display main menu
         """
         self.set_screen()

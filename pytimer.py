@@ -4,17 +4,17 @@ import database
 
 if __name__ == "__main__":
     display = frontend.Display()
-    display.menu()
+    display.new_menu()
     obj = None
     while 1:
         x = display.screen.getch()
 
-        if x == ord('1'):
+        if x == ord('n'):
             description = display.get_param("enter activity description")
             obj = activity.Activity()
             obj.start_activity(description)
             display.show_current(description)
-        if x == ord("2"):
+        if x == ord("l"):
             display.list_activities([], schema=['Start', 'End', 'Activity'])
         if x == ord("q"):
             if obj:
