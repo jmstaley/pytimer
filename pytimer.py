@@ -4,7 +4,7 @@ import database
 
 if __name__ == "__main__":
     display = frontend.Display()
-    display.new_menu()
+    display.menu()
     obj = None
     while 1:
         x = display.screen.getch()

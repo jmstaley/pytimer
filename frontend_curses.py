@@ -53,7 +53,7 @@ class Display:
                      y=13,
                      x=8)
 
-    def new_menu(self):
+    def menu(self):
         """ new main menu
         """
         self.set_screen()
@@ -62,14 +62,15 @@ class Display:
         self.add_str("[q - Exit]", x=47, y=1)
         self.screen.hline(2, 1, curses.ACS_HLINE, (self.max_x-2))
 
-    def menu(self):
-        """ display main menu
-        """
-        self.set_screen()
-        self.add_str("Please select an option...", x=2, y=2)
-        self.add_str("1 - Start new task", x=4, y=4)
-        self.add_str("2 - View activities", x=4, y=6)
-        self.add_str("Q - Exit", x=4, y=8)
+    # old style menu deprecated
+#    def menu(self):
+#        """ display main menu
+#        """
+#        self.set_screen()
+#        self.add_str("Please select an option...", x=2, y=2)
+#        self.add_str("1 - Start new task", x=4, y=4)
+#        self.add_str("2 - View activities", x=4, y=6)
+#        self.add_str("Q - Exit", x=4, y=8)
 
     def exit(self):
         """ reset curses and exit
