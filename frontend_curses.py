@@ -1,8 +1,7 @@
 import curses
 
 class Display:
-    """
-    """
+    """Curses display sections"""
 
     def __init__(self):
         self.screen = curses.initscr()
@@ -11,14 +10,12 @@ class Display:
         self.max_y, self.max_x = self.screen.getmaxyx()
 
     def set_screen(self):
-        """ clear screen ready for new display
-        """
+        """clear screen ready for new display"""
         self.screen.clear()
         self.screen.border(0)
 
     def get_param(self, prompt_string):
-        """ get user input from screen
-        """
+        """get user input from screen"""
         self.set_screen()
         self.add_str(prompt_string, x=2, y=2)
         self.screen.refresh()
@@ -31,13 +28,13 @@ class Display:
         self.screen.addstr(y, x, string)
 
     def show_current(self, display_string):
-        """ display the current task on screen
-        """
+        """display the current task on screen"""
         self.set_screen()
-        self.add_str('Current task:', x=2, y=2)
+        self.task_menu()
+        self.add_str('Current task:', x=2, y=4)
         self.add_str(display_string, x=4, y=5)
-        self.screen.hline((self.max_y-3), 1, curses.ACS_HLINE, (self.max_x-2))
-        self.add_str('f - [Finish task]', x=2, y=(self.max_y-2))
+        #self.screen.hline((self.max_y-3), 1, curses.ACS_HLINE, (self.max_x-2))
+        #self.add_str('f - [Finish task]', x=2, y=(self.max_y-2))
         self.screen.refresh()
 
     def show_last(self, obj):
@@ -53,16 +50,20 @@ class Display:
                      y=13,
                      x=8)
 
+    def task_menu(self):
+        """menu displayed when working in a task"""
+        self.add_str("[f - Finish task]", x=2, y=1)
+        self.screen.hline(2, 1, curses.ACS_HLINE, (self.max_x-2))
+
     def menu(self):
-        """ new main menu
-        """
+        """main menu"""
         self.set_screen()
         self.add_str("[n - Start new task]", x=2, y=1)
         self.add_str("[l - View activities] ", x=24, y=1)
         self.add_str("[q - Exit]", x=47, y=1)
         self.screen.hline(2, 1, curses.ACS_HLINE, (self.max_x-2))
 
-    # old style menu deprecated
+# old style menu deprecated
 #    def menu(self):
 #        """ display main menu
 #        """
@@ -73,15 +74,13 @@ class Display:
 #        self.add_str("Q - Exit", x=4, y=8)
 
     def exit(self):
-        """ reset curses and exit
-        """
+        """reset curses and exit"""
         curses.echo()
         curses.nocbreak()
         curses.endwin()
 
     def list_activities(self, results, schema=[]):
-        """ display a list of results
-        """
+        """display a list of results"""
         self.set_screen()
         header = ''
         if schema:
